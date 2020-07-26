@@ -44,7 +44,7 @@ class LinearRegressionMGD():
         return sum_m,sum_b
     
     
-    def fit(self,x,y,lr=0.001, batch_size=10,epochs=200, threshold=0.00001):
+    def fit(self,x,y,lr=0.001, batch_size=10,epochs=200, threshold=0.00001, show_epochs=1):
         
         # training function
         # parameters: 
@@ -121,7 +121,9 @@ class LinearRegressionMGD():
                 
             # Storing the cost
             self.costs.append(self.cost(x,y))
-            print(f' Epoch: {epoch} Cost: {self.costs[-1]} ')
+            
+            if epoch%show_epochs==0:
+                print(f' Epoch: {epoch} Cost: {self.costs[-1]} ')
         
     
     def predict(self,x):
