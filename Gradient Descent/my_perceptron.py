@@ -36,17 +36,9 @@ class myPerceptron():
     def grad(self,x,y):
         
         # calculates the gradients for the weights and biases
-        
-        # Initializing the gradient accumulators
-        sum_w=np.array([0 for i in range(self.degree)], dtype=float)
-        sum_b=0
-        
-        
-        for i in range(len(x)):
-            y_cap=self.sigmoid(self.w.dot(x[i])+self.b)
-            sum_w+=  x[i] * ( y_cap - y[i] )
-            sum_b+=  ( y_cap - y[i] )
-        
+        y_cap=self.sigmoid(np.dot(x,self.w)+self.b)
+        sum_w= np.dot( y_cap-y, x)/len(x)
+        sum_b= np.mean(y_cap-y)
         return sum_w,sum_b
     
     
@@ -125,8 +117,8 @@ class myPerceptron():
                     return
 
                 # Applying the gradients along with the learning rate
-                self.w = self.w - lr / batch_size * step_w
-                self.b = self.b - lr / batch_size * step_b
+                self.w = self.w - lr  * step_w
+                self.b = self.b - lr  * step_b
                 
                 # Storing the Gradient for this minibatch
                 tot_step_w+= step_w
